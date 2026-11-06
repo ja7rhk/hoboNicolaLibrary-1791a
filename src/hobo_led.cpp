@@ -24,7 +24,7 @@
 Adafruit_NeoPixel neo_pixel(1, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 static uint32_t neo_pixel_color; // rgb composite value.
 //static const uint8_t neo_pixel_brt = 32; // brightness (0 - 255)
-static const uint8_t neo_pixel_brt = 8; // brightness (0 - 255)
+static const uint8_t neo_pixel_brt = 4; // brightness (0 - 255)
 static const uint8_t neo_pixel_index = 0;
 
 static bool neo_pixel_init = false;
@@ -131,7 +131,17 @@ void all_led_off() {
 
 
 #ifdef USE_NEOPIXEL  
-	void led_nicola(bool on) { neo_pixel_green(on); }
+	void led_nicola(bool on) {
+		if (on) {
+			neo_pixel_blue(false);
+			neo_pixel_green(true);
+			neo_pixel_red(true);
+		} else {
+			neo_pixel_blue(true);
+			neo_pixel_red(false);
+			neo_pixel_green(false);
+		}
+	};
 	void led_toggle_nicola() { neo_pixel_toggle_green(); }
 	void led_error(bool on) { neo_pixel_red(on);}
 	void led_ready(bool on) {}
